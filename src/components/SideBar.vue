@@ -15,7 +15,7 @@
         <div class="primary-text font-bold text-xl ml-2">OnCloud</div>
         
       </div>
-      <div class="" style="font-size: 10px;">by mosymxl & selmiss</div>
+      <!-- <div class="" style="font-size: 10px;">by mosymxl & selmiss</div> -->
     </div>
   </div>
 </template>
@@ -35,8 +35,9 @@ export default {
       default: () => [
         { index: '/home', icon: 'home', text: '首页' },
         // { index: '/gallery', icon: 'book', text: '日常' },
-        { index: '/image', icon: 'person_add', text: '镜像' },
-        { index: '/load', icon: 'person', text: '负载' },
+        { index: '/image', icon: 'cloud', text: '镜像' },
+        { index: '/load', icon: 'dns', text: '负载' },
+        { index: '/team', icon: 'groups', text: '团队' },
         // { index: '/gossip', icon: 'numbers', text: 'Commits' },
         // { index: '/stuff', icon: 'view_week', text: 'Todo' },
         // { index: '/user', icon: 'face', text: '你' },

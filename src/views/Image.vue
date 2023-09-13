@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Docker Images</h1>
+    <h1>镜像</h1>
     
     <!-- Tab Buttons -->
     <el-tabs v-model="activeTab">
@@ -86,3 +86,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+/* h1 {
+  font-family: Google Sans, sans-serif
+} */
+</style>

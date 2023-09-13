@@ -20,10 +20,8 @@
     <div v-else>
       <div class="title">登录</div>
       <login></login>
-      <div class="primary p-2 rounded-lg">自由注册暂不开放，请联系站主（微信号：mosymosyy）
-      </div>
-      <!-- <div class="title">注册</div>
-      <Register /> -->
+      <div class="title">注册</div>
+      <Register />
       <!-- <el-button class=" float-right mt-4" type="primary" @click="deleteCookie">清除cookie</el-button> -->
     </div>
     

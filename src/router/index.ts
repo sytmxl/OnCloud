@@ -23,6 +23,12 @@ const router = createRouter({
       meta: { showMenuIcon: false, showPageTitle: 'Space' },
     },
     {
+      path: '/team',
+      name: 'team',
+      component: () => import('../views/Team.vue'),
+      meta: { showMenuIcon: false, showPageTitle: 'Space' },
+    },
+    {
       path: '/about',
       name: 'about',
       component: () => import('../views/AboutView.vue'),

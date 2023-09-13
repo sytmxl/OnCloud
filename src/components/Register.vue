@@ -1,9 +1,6 @@
 <template>
   <div class="register">
     <el-form ref="form" :model="form" max-width="120px" class="register-form">
-      <div class="primary p-2 rounded-lg">请使用实名和真实电话号码注册，认不出来的可能会被清理
-        <br/>密码存和传都是加密的 问题不大（用个简单点的也行）
-      </div>
       <div class="mb-4"></div>
       <el-form-item label="实名">
         <el-input v-model="form.username"></el-input>
