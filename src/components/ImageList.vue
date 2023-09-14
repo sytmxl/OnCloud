@@ -1,70 +1,47 @@
 <template>
-  <div>
+  
+  <el-card>
     <!-- <h1>Images</h1> -->
-    <el-button type="primary" @click="showCreateDialog">Create Image</el-button>
-    <el-table :data="imageList">
-      <el-table-column label="Repository" prop="repository"></el-table-column>
-      <el-table-column label="Tag" prop="tag"></el-table-column>
-      <el-table-column label="Size" prop="size"></el-table-column>
-      <el-table-column label="Created" prop="created"></el-table-column>
-      <el-table-column label="Actions">
-        <template slot-scope="scope">
-          <el-button type="danger"  @click="deleteImage(scope.row)">Delete</el-button>
-          <el-button type="primary"  @click="showEditDialog(scope.row)">Edit</el-button>
+    <el-table size="large" :data="imageList" :stripe="true">
+      <el-table-column label="仓库" prop="repository"></el-table-column>
+      <el-table-column label="标签" prop="tag"></el-table-column>
+      <el-table-column label="大小" prop="size"></el-table-column>
+      <el-table-column label="创建时间" prop="created"></el-table-column>
+      <el-table-column label="" align="right">
+        <template #default="scope">
+          <el-button type="danger" size="small" @click="deleteImage(scope.row)">删除</el-button>
+          <el-button type="primary" size="small" @click="showEditDialog(scope.row)">修改</el-button>
         </template>
       </el-table-column>
     </el-table>
 
-    <!-- Create Image Dialog -->
-    <el-dialog title="Create Docker Image" class="z-50" :visible.sync="createDialogVisible">
-      <!-- Form for creating a new image -->
-      <el-form :model="newImage" label-width="120px">
-        <el-form-item label="Repository">
-          <el-input v-model="newImage.repository"></el-input>
-        </el-form-item>
-        <el-form-item label="Tag">
-          <el-input v-model="newImage.tag"></el-input>
-        </el-form-item>
-        <el-form-item label="Size">
-          <el-input v-model="newImage.size"></el-input>
-        </el-form-item>
-        <el-form-item label="Created">
-          <el-input v-model="newImage.created"></el-input>
-        </el-form-item>
-      </el-form>
-
-      <!-- Dialog buttons -->
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="createImage">Create</el-button>
-        <el-button @click="createDialogVisible = false">Cancel</el-button>
-      </div>
-    </el-dialog>
+    
 
     <!-- Edit Image Dialog -->
-    <el-dialog title="Edit Docker Image" :visible.sync="editDialogVisible">
+    <el-dialog title="修改镜像" v-model="editDialogVisible">
       <!-- Form for editing an image -->
       <el-form :model="editImage" label-width="120px">
-        <el-form-item label="Repository">
+        <el-form-item label="仓库">
           <el-input v-model="editImage.repository"></el-input>
         </el-form-item>
-        <el-form-item label="Tag">
+        <el-form-item label="标签">
           <el-input v-model="editImage.tag"></el-input>
         </el-form-item>
-        <el-form-item label="Size">
+        <el-form-item label="大小">
           <el-input v-model="editImage.size"></el-input>
         </el-form-item>
-        <el-form-item label="Created">
+        <el-form-item label="创建时间">
           <el-input v-model="editImage.created"></el-input>
         </el-form-item>
       </el-form>
 
       <!-- Dialog buttons -->
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="updateImage">Save</el-button>
-        <el-button @click="editDialogVisible = false">Cancel</el-button>
+      <div slot="footer" class="dialog-footer flex w-full  flex-row-reverse gap-1">
+        <el-button type="primary" @click="updateImage">保存</el-button>
+        <el-button @click="editDialogVisible = false">取消</el-button>
       </div>
     </el-dialog>
-  </div>
+  </el-card>
 </template>
 
 <script>
@@ -74,7 +51,6 @@ export default {
   },
   data() {
     return {
-      createDialogVisible: false,
       editDialogVisible: false,
       newImage: {
         repository: '',

@@ -1,17 +1,44 @@
 <template>
-  <div>
-    <h1>镜像</h1>
+  <div class="p-2">
+    <div class="flex justify-between p-4">
+      <div class="flex gap-4">
+        <h1>镜像</h1>
+        <el-radio-group v-model="activeTab" class=" rounded-full">
+          <el-radio-button label="private">个人镜像</el-radio-button>
+          <el-radio-button label="public">公共镜像</el-radio-button>
+        </el-radio-group>
+      </div>
+      <el-button type="primary" @click="showCreateDialog">创建</el-button>
+    </div>
     
     <!-- Tab Buttons -->
-    <el-tabs v-model="activeTab">
-      <el-tab-pane label="Public Images" name="public">
-        <ImageList :image-list="imageList"></ImageList>
-      </el-tab-pane>
+    <ImageList v-if="activeTab == 'private'" :image-list="privateImageList"></ImageList>
+    <ImageList v-if="activeTab == 'public'" :image-list="publicImageList"></ImageList>
 
-      <el-tab-pane label="Private Images" name="private">
-        <ImageList :image-list="imageList"></ImageList>
-      </el-tab-pane>
-    </el-tabs>
+    <!-- Create Image Dialog -->
+    <el-dialog title="创建新镜像" v-model="createDialogVisible">
+      <!-- Form for creating a new image -->
+      <el-form :model="newImage" label-width="80px">
+        <el-form-item label="仓库">
+          <el-input v-model="newImage.repository"></el-input>
+        </el-form-item>
+        <el-form-item label="标签">
+          <el-input v-model="newImage.tag"></el-input>
+        </el-form-item>
+        <el-form-item label="大小">
+          <el-input v-model="newImage.size"></el-input>
+        </el-form-item>
+        <el-form-item label="创建时间">
+          <el-input v-model="newImage.created"></el-input>
+        </el-form-item>
+      </el-form>
+
+      <!-- Dialog buttons -->
+      <div slot="footer" class="dialog-footer flex w-full  flex-row-reverse gap-1">
+        <el-button type="primary" @click="createImage">创建</el-button>
+        <el-button @click="createDialogVisible = false">删除</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -23,31 +50,20 @@ export default {
   },
   data() {
     return {
-      activeTab: 'public',
-      imageList: [
+      activeTab: 'private',
+      publicImageList: [
         { id: 1, repository: 'nginx', tag: 'latest', size: '126MB', created: '2 days ago' },
         { id: 2, repository: 'ubuntu', tag: '20.04', size: '69.5MB', created: '1 week ago' },
         { id: 3, repository: 'mysql', tag: '5.7', size: '487MB', created: '3 weeks ago' },
         { id: 4, repository: 'redis', tag: '6.0', size: '98.6MB', created: '4 weeks ago' },
         { id: 5, repository: 'node', tag: '14', size: '248MB', created: '1 month ago' },
-        // Add more image objects here with relevant information
-      ],
-      publicImageList: [
-        // Public image data
       ],
       privateImageList: [
-        // Private image data
+        { id: 1, repository: 'nginx', tag: 'latest', size: '126MB', created: '2 days ago' },
+        { id: 2, repository: 'ubuntu', tag: '20.04', size: '69.5MB', created: '1 week ago' },
       ],
       createDialogVisible: false,
-      editDialogVisible: false,
       newImage: {
-        repository: '',
-        tag: '',
-        size: '',
-        created: '',
-      },
-      editImage: {
-        id: 0,
         repository: '',
         tag: '',
         size: '',
@@ -59,29 +75,10 @@ export default {
     showCreateDialog() {
       this.createDialogVisible = true;
     },
-    showEditDialog(image) {
-      this.editImage = { ...image };
-      this.editDialogVisible = true;
-    },
     createImage() {
       // Add validation and API call to create a new image
       this.imageList.push({ ...this.newImage, id: this.imageList.length + 1 });
       this.createDialogVisible = false;
-    },
-    updateImage() {
-      // Add validation and API call to update the image
-      const index = this.imageList.findIndex((image) => image.id === this.editImage.id);
-      if (index !== -1) {
-        this.imageList[index] = { ...this.editImage };
-        this.editDialogVisible = false;
-      }
-    },
-    deleteImage(image) {
-      // Add API call to delete the image
-      const index = this.imageList.findIndex((img) => img.id === image.id);
-      if (index !== -1) {
-        this.imageList.splice(index, 1);
-      }
     },
   },
 };

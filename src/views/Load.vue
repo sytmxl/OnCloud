@@ -1,42 +1,58 @@
 <template>
   <div class="p-2 w-full">
-    <div class="flex justify-between p-4">
-      <h1>工作负载管理</h1>
-      <el-button type="primary" @click="showCreateDialog">Create Image</el-button>
-    </div>
-    <el-dialog title="Create Docker Image" class="" v-if="createDialogVisible">
+    <el-dialog title="创建新工作负载" v-model="createDialogVisible" >
       <!-- Create Workload Form -->
       <el-card>
-        <h2>Create New Workload</h2>
+        <!-- <h2>Create New Workload</h2> -->
         <el-form ref="createForm" :model="newWorkload" label-position="top">
-          <el-form-item label="Name">
+          <el-form-item label="名称">
             <el-input v-model="newWorkload.name"></el-input>
           </el-form-item>
-          <el-form-item label="Image">
+          <el-form-item label="镜像">
             <el-input v-model="newWorkload.image"></el-input>
           </el-form-item>
-          <el-form-item label="Port">
+          <el-form-item label="端口">
             <el-input v-model="newWorkload.port"></el-input>
           </el-form-item>
-          <el-form-item label="Environment Variables">
+          <el-form-item label="环境变量">
             <el-input v-model="newWorkload.env"></el-input>
           </el-form-item>
-          <el-button type="primary" @click="createWorkload">Create</el-button>
+          <el-button type="primary" class="" @click="createWorkload">创建</el-button>
         </el-form>
       </el-card>
     </el-dialog>
+    <div class="flex justify-between p-4">
+      <h1>工作负载管理</h1>
+      <el-button type="primary" @click="showCreateDialog">创建</el-button>
+    </div>
     
     <!-- Workload List -->
     <el-card>
-      <h2>Workload List</h2>
-      <el-table :data="workloads" border>
-        <el-table-column label="Name" prop="name"></el-table-column>
-        <el-table-column label="Image" prop="image"></el-table-column>
-        <el-table-column label="Port" prop="port"></el-table-column>
-        <el-table-column label="Actions">
+      <!-- <h2>工作负载</h2> -->
+      <el-table size="large" :data="workloads" >
+        <el-table-column label="名称" prop="name"></el-table-column>
+        <el-table-column label="镜像" prop="image"></el-table-column>
+        <el-table-column label="端口" prop="port"></el-table-column>
+        <!-- <el-table-column label="Actions">
           <template slot-scope="scope">
             <el-button type="danger" @click="deleteWorkload(scope.row)">Delete</el-button>
             <el-button type="primary" @click="editWorkload(scope.row)">Edit</el-button>
+          </template>
+        </el-table-column> -->
+        <el-table-column align="right">
+          <template #header>
+            <el-input v-model="search" size="small" placeholder="搜索名称" />
+          </template>
+          <template #default="scope">
+            <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
+              >修改</el-button
+            >
+            <el-button
+              size="small"
+              type="danger"
+              @click="handleDelete(scope.$index, scope.row)"
+              >删除</el-button
+            >
           </template>
         </el-table-column>
       </el-table>
@@ -87,7 +103,7 @@ export default {
   methods: {
     showCreateDialog() {
       this.createDialogVisible = true;
-      console.log(this.createDialogVisible)
+      // console.log(this.createDialogVisible)
     },
     createWorkload() {
       // Send a POST request to your API to create a new workload
