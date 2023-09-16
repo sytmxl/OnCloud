@@ -18,8 +18,10 @@
         <el-table-column label="角色" prop="role"></el-table-column>
         <el-table-column label="" align="right">
           <template #default="scope">
-            <el-button type="danger" size="small" @click="delete(scope.row)">删除</el-button>
-            <el-button type="primary" size="small" @click="showEditDialog(scope.row)">修改</el-button>
+            <div class="flex gap-2 justify-end">
+              <el-button type="danger" size="small" @click="delete(scope.row)">删除</el-button>
+              <el-button type="primary" size="small" @click="showEditDialog(scope.row)">修改</el-button>
+            </div>
           </template>
         </el-table-column>
       </el-table>

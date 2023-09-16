@@ -44,15 +44,10 @@
             <el-input v-model="search" size="small" placeholder="搜索名称" />
           </template>
           <template #default="scope">
-            <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
-              >修改</el-button
-            >
-            <el-button
-              size="small"
-              type="danger"
-              @click="handleDelete(scope.$index, scope.row)"
-              >删除</el-button
-            >
+            <div class="flex gap-2 justify-end">
+              <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+              <el-button size="small" type="primary" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
+            </div>
           </template>
         </el-table-column>
       </el-table>
