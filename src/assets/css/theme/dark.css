@@ -53,7 +53,7 @@
   /* On surface */
   --md-sys-color-on-surface: var(--md-ref-palette-neutral90);
   /* Surface Variant */
-  --md-sys-color-surface-variant: var(--md-ref-palette-neutral-variant30);
+  --md-sys-color-surface-variant: var(--md-ref-palette-neutral-variant20);
   /* Surface */
   --md-sys-color-surface: var(--md-ref-palette-neutral10);
   /* On secondary container */
@@ -69,9 +69,9 @@
   /* On primary container */
   --md-sys-color-on-primary-container: var(--md-ref-palette-primary90);
   /* On primary */
-  --md-sys-color-on-primary: var(--md-ref-palette-primary20);
+  --md-sys-color-on-primary: var(--md-ref-palette-primary0);
   /* Primary container */
   --md-sys-color-primary-container: var(--md-ref-palette-primary30);
   /* Primary */
-  --md-sys-color-primary: var(--md-ref-palette-primary80);
+  --md-sys-color-primary: var(--md-ref-palette-primary70);
 }

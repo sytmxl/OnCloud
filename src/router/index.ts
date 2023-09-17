@@ -28,46 +28,8 @@ const router = createRouter({
       component: () => import('../views/Team.vue'),
       meta: { showMenuIcon: false, showPageTitle: 'Space' },
     },
-    {
-      path: '/about',
-      name: 'about',
-      component: () => import('../views/AboutView.vue'),
-      meta: { showMenuIcon: false, showPageTitle: '关于' },
-    },
-    {
-      path: '/blog',
-      name: 'blog',
-      component: () => import('../views/Blog.vue'),
-      meta: { showMenuIcon: false, showPageTitle: '查询' },
-    },
-    {
-      path: '/Gallery',
-      name: 'Gallery',
-      component: () => import('../views/Gallery.vue'),
-      meta: { showMenuIcon: true, showPageTitle: '日常' },
-    },
-    {
-      path: '/Stuff',
-      name: 'Stuff',
-      component: () => import('../views/Stuff.vue'),
-      meta: { showMenuIcon: false, showPageTitle: 'Todos' },
-    },
-    {
-      path: '/Gossip',
-      name: 'Gossip',
-      component: () => import('../views/Gossip.vue'),
-      meta: { showMenuIcon: false, showPageTitle: 'Commits' },
-    },
-    // {
-    //   path: '/Login',
-    //   name: 'Login',
-    //   component: () => import('../views/Login.vue')
-    // },
-    // {
-    //   path: '/Register',
-    //   name: 'Register',
-    //   component: () => import('../views/Register.vue')
-    // },
+    
+    
     {
       path: '/User',
       name: 'User',

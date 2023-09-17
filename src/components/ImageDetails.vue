@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>基本信息</h2>
+    <h2 style="margin-top: 0;">基本信息</h2>
     <ul>
       <li><strong>镜像 ID：</strong>{{ displayOrNoInfo(detailData.id) }}</li>
       <li><strong>Short ID：</strong>{{ displayOrNoInfo(detailData.short_id) }}</li>
@@ -54,10 +54,6 @@
 export default {
   props: {
     detailData: Object, // 传入的详情数据，假设是一个包含 JSON 数据的对象
-    dialogVisible: Boolean
-  },
-  mounted() {
-    console.log(this.detailData)
   },
   methods: {
     displayOrNoInfo(value) {
