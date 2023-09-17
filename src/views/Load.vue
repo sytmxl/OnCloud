@@ -56,6 +56,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   data() {
     return {
@@ -96,6 +97,17 @@ export default {
     };
   },
   methods: {
+    fetchList() {
+      axios.get('/image/list')
+        .then((response) => {
+          // console.log(response)
+          this.privateImageList = this.publicImageList = response.data.data;
+          this.loading = false
+        })
+        .catch((error) => {
+          console.error('Error fetching user list:', error);
+        });
+    },
     showCreateDialog() {
       this.createDialogVisible = true;
       // console.log(this.createDialogVisible)

@@ -13,8 +13,8 @@
           <div class="flex gap-2 justify-end">
             <el-button type="primary" size="small" @click="showImageDetails(scope.row)">详情</el-button>
             <el-button v-if="type == 'private'" type="danger" size="small" @click="deleteImage(scope.row)">删除</el-button>
-            <el-button v-if="type == 'private'" type="primary" size="small" @click="showEditDialog(scope.row)">修改</el-button>
-            <el-button v-if="type == 'public'" type="primary" size="small" @click="pull(scope.row)">拉取</el-button>
+            <el-button v-if="type == 'private'"  size="small" @click="showEditDialog(scope.row)">修改</el-button>
+            <el-button v-if="type == 'public'"  size="small" @click="pull(scope.row)">拉取</el-button>
           </div>
         </template>
       </el-table-column>
@@ -106,16 +106,16 @@ export default {
     deleteImage(image) { 
       axios.post('/image/remove', { image_id: image.id })
         .then(response => {
-          if (response.msg == "delete success") {
+          const msg = response.data.msg
+          
+          if (msg == "delete success") {
             this.$message.success('删除成功');
 
             const index = this.imageList.findIndex((img) => img.id === image.id);
-            if (index !== -1) {
-              this.imageList.splice(index, 1);
-            }
+            if (index !== -1) this.imageList.splice(index, 1);
           }
-          else 
-            this.$message.error('失败', response.msg);
+          else  
+            this.$message.error('失败: ' + msg);
         })
         .catch(error => {
           this.$message.error('失败', error);
@@ -132,7 +132,7 @@ export default {
             this.$message.success('拉取成功');
           }
           else 
-            this.$message.error('失败', response.msg);
+            this.$message.error('失败：' + response.msg);
         })
         .catch(error => {
           this.$message.error('失败', error);

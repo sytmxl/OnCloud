@@ -7,7 +7,7 @@
     class="pb-6"
   >
     <el-form-item label="Dockerfile">
-      <input type="file"  @change="handleFileChange">
+      <input type="file" accept=".zip"  @change="handleFileChange">
     </el-form-item>
     <el-form-item label="标签">
       <el-input v-model="formData.tag" placeholder="请输入标签"></el-input>
@@ -53,19 +53,23 @@ export default {
           formData.append('tag', this.formData.tag);
           formData.append('dockerfile', this.selectedFile);
 
-          try {
-            await axios.post('/image/build', formData, {
-              headers: { 'Content-Type': 'multipart/form-data' },
+          axios.post('/image/build', formData, { headers: { 'Content-Type': 'multipart/form-data' }, })
+            .then(response => {
+              if (response.data.msg == "build success") {
+                this.$message.success('上传成功，请等待创建加载');
+                // reset the form after successful upload
+                this.$refs[formName].resetFields();
+              }
+              else {
+                this.$message.error('失败：' + response.data.msg);
+              }
+              this.loading = false;
+            })
+            .catch(error => {
+              this.$message.error('创建上传失败', error);
+              console.error('Error:', error);
+              this.loading = false;
             });
-            this.$message.success('上传成功，请等待创建加载');
-            this.loading = false;
-            // Optionally, you can reset the form after successful upload
-            this.$refs[formName].resetFields();
-          } catch (error) {
-            this.$message.error('创建上传失败');
-            console.error('Error:', error);
-            this.loading = false;
-          }
         }
       });
     },

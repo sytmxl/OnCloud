@@ -24,8 +24,8 @@ import './assets/ep.scss'
 
 // import {instance} from "@/http";
 const app = createApp(App)
-// axios.defaults.baseURL = 'http://43.143.244.118:5000/';
-axios.defaults.baseURL = 'http://127.0.0.1:4523/m1/3298576-0-default/';
+axios.defaults.baseURL = 'http://43.143.244.118:5000/';
+// axios.defaults.baseURL = 'http://127.0.0.1:4523/m1/3298576-0-default/';
 const token = localStorage.getItem('token');
 axios.defaults.headers.common['Authorization'] = `Token ${token}`;
 
