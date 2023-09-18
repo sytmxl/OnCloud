@@ -3,7 +3,7 @@
   <el-card>
     <!-- <h1>Images</h1> -->
     <el-table size="large" :data="imageList" :stripe="true">
-      <el-table-column label="镜像ID" prop="id"></el-table-column>
+      <el-table-column label="镜像ID" prop="short_id"></el-table-column>
       <!-- <el-table-column label="仓库" prop="attrs.Config.Image"></el-table-column> -->
       <el-table-column label="标签" prop="attrs.RepoTags"></el-table-column>
       <el-table-column label="大小" prop="attrs.Size"></el-table-column>
@@ -83,6 +83,11 @@ export default {
       detailsDialogVisible: false,
       selectedImage: null,
     };
+  },
+  computed: {
+    cutId() {
+      return this.imageList.map(item => item.short_id.replace("sha256:", ""));
+    },
   },
   methods: {
     showCreateDialog() {

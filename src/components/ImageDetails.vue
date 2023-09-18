@@ -29,7 +29,7 @@
       <li>
         <strong>环境变量：</strong>
         <ul>
-          <li v-for="envVar in detailData.attrs.Config.Env">{{ displayOrNoInfo(envVar) }}</li>
+          <li class="ml-4" v-for="envVar in detailData.attrs.Config.Env">{{ displayOrNoInfo(envVar) }}</li>
         </ul>
       </li>
       <li><strong>StopSignal：</strong>{{ displayOrNoInfo(detailData.attrs.Config.StopSignal) }}</li>

@@ -4,7 +4,12 @@
     <ul>
       <li><strong>可用副本：</strong>{{ displayOrNoInfo(detailData.available_replicas) }}</li>
       <li><strong>创建时间：</strong>{{ displayOrNoInfo(detailData.creation_timestamp) }}</li>
-      <li><strong>标签：</strong>{{ displayOrNoInfo(detailData.labels["objectset.rio.cattle.io/hash"]) }}</li>
+      <li>
+        <strong>标签：</strong>
+        <li class="ml-4" v-for="(value, key) in detailData.labels" :key="key">
+          {{ key }}: {{ value }}
+        </li>
+      </li>
       <li><strong>名称：</strong>{{ displayOrNoInfo(detailData.name) }}</li>
       <li><strong>命名空间：</strong>{{ displayOrNoInfo(detailData.namespace) }}</li>
       <li><strong>副本数：</strong>{{ displayOrNoInfo(detailData.replicas) }}</li>
@@ -18,7 +23,7 @@
       <li>
         <strong>环境变量：</strong>
         <ul v-if="container.env">
-          <li v-for="envVar in container.env" :key="envVar.name">
+          <li class="ml-4" v-for="envVar in container.env" :key="envVar.name">
             {{ displayOrNoInfo(envVar.name) }}：{{ displayOrNoInfo(envVar.value) }}
           </li>
         </ul>

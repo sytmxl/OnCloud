@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- <h2>操作工作负载</h2> -->
-    <el-form class="pb-6" ref="form" :model="formDataParam" label-width="120px">
+    <el-form class="" ref="form" :model="formDataParam" label-width="120px">
       <el-form-item label="方式">
         <el-radio-group v-model="method" class=" rounded-full">
           <el-radio-button label="param">使用选项</el-radio-button>
@@ -48,14 +48,14 @@
         <el-input v-model="formDataParam.label_values" placeholder="label_values"></el-input>
       </el-form-item>
 
-      <el-button class=" float-right" type="primary" @click="createWorkloadParam">操作</el-button>
+      <el-button class=" float-right" type="primary" @click="createWorkloadParam">提交</el-button>
     </el-form>
 
     <!-- yaml form -->
     <el-form
       v-else
       :model="formDataYaml"
-      label-width="100px"
+      label-width="120px"
       ref="form"
       v-loading="loading"
       class="pb-6"
@@ -71,7 +71,7 @@
         <el-input v-model="formDataYaml.namespace" required placeholder="namespace"></el-input>
       </el-form-item>
 
-      <el-button class=" float-right" type="primary" @click="createWorkloadYaml">操作</el-button>
+      <el-button class=" float-right" type="primary" @click="createWorkloadYaml">提交</el-button>
     </el-form>
   </div>
 </template>

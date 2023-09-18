@@ -12,7 +12,23 @@ ul {
   margin: 0;
   padding: 0;
 }
-
+input[type="file"] {
+  color: var(--md-sys-color-primary);
+}
+input[type="file" i] {
+  appearance: none;
+  background-color: initial;
+  cursor: default;
+  align-items: baseline;
+  color: inherit;
+  text-overflow: ellipsis;
+  white-space-collapse: preserve;
+  text-wrap: nowrap;
+  text-align: start !important;
+  padding: initial;
+  border: initial;
+  overflow: hidden !important;
+}
 h1 {
   @apply text-3xl font-bold primary-text
 }

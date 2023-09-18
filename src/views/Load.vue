@@ -27,13 +27,13 @@
         </el-table-column> -->
         <el-table-column align="right">
           <template #header>
-            <el-input v-model="search" size="small" placeholder="搜索名称" />
+            <!-- <el-input v-model="search" size="small" placeholder="搜索名称" /> -->
           </template>
           <template #default="scope">
             <div class="flex gap-2 justify-end">
               <el-button type="primary" size="small" @click="showDetails(scope.row)">详情</el-button>
               <el-button size="small" type="danger" @click="deleteLoad(scope.row)">删除</el-button>
-              <el-button size="small" type="primary" @click="updateDialogVisible = true">修改</el-button>
+              <el-button size="small" @click="updateDialogVisible = true">修改</el-button>
             </div>
           </template>
         </el-table-column>
