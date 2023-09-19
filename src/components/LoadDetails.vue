@@ -3,7 +3,7 @@
     <h2 style="margin-top: 0;">基本信息</h2>
     <ul>
       <li><strong>可用副本：</strong>{{ displayOrNoInfo(detailData.available_replicas) }}</li>
-      <li><strong>创建时间：</strong>{{ displayOrNoInfo(detailData.creation_timestamp) }}</li>
+      <li><strong>创建时间：</strong>{{ getRelativeDateTime(displayOrNoInfo(detailData.creation_timestamp)) }}</li>
       <li>
         <strong>标签：</strong>
         <li class="ml-4" v-for="(value, key) in detailData.labels" :key="key">
@@ -38,6 +38,7 @@
 
 
 <script>
+import { getRelativeDateTime } from '@/utils';
 export default {
   props: {
     detailData: Object, // 传入的详情数据，假设是一个包含 JSON 数据的对象
@@ -45,6 +46,9 @@ export default {
   methods: {
     displayOrNoInfo(value) {
       return value || '无信息';
+    },
+    getRelativeDateTime(input) {
+      return getRelativeDateTime(input)
     },
   },
 };

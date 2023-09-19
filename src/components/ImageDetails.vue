@@ -2,13 +2,13 @@
   <div>
     <h2 style="margin-top: 0;">基本信息</h2>
     <ul>
-      <li><strong>镜像 ID：</strong>{{ displayOrNoInfo(detailData.id) }}</li>
-      <li><strong>Short ID：</strong>{{ displayOrNoInfo(detailData.short_id) }}</li>
-      <li><strong>创建时间：</strong>{{ displayOrNoInfo(detailData.attrs.Created) }}</li>
+      <li><strong>镜像 ID：</strong>{{ displayOrNoInfo(detailData.id).slice(7) }}</li>
+      <li><strong>Short ID：</strong>{{ displayOrNoInfo(detailData.short_id).slice(7) }}</li>
+      <li><strong>创建时间：</strong>{{ getRelativeDateTime(displayOrNoInfo(detailData.attrs.Created)) }}</li>
       <li><strong>Docker 版本：</strong>{{ displayOrNoInfo(detailData.attrs.DockerVersion) }}</li>
       <li><strong>操作系统：</strong>{{ displayOrNoInfo(detailData.attrs.Os) }}</li>
       <li><strong>Variant：</strong>{{ displayOrNoInfo(detailData.attrs.Variant) }}</li>
-      <li><strong>Virtual Size：</strong>{{ displayOrNoInfo(detailData.attrs.VirtualSize) }}</li>
+      <li><strong>Virtual Size：</strong>{{ formatBytes(displayOrNoInfo(detailData.attrs.VirtualSize)) }}</li>
     </ul>
 
     <h2>标签和维护者</h2>
@@ -51,11 +51,18 @@
 
 
 <script>
+import { getRelativeDateTime, formatBytes } from '@/utils';
 export default {
   props: {
     detailData: Object, // 传入的详情数据，假设是一个包含 JSON 数据的对象
   },
   methods: {
+    getRelativeDateTime(input) {
+      return getRelativeDateTime(input)
+    },
+    formatBytes(input) {
+      return formatBytes(input)
+    },
     displayOrNoInfo(value) {
       return value || '无信息';
     },

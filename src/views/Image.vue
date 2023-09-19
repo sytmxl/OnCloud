@@ -35,11 +35,6 @@ export default {
     return {
       activeTab: 'private',
       publicImageList: [
-        { id: 1, repository: 'nginx', tag: 'latest', size: '126MB', created: '2 days ago' },
-        { id: 2, repository: 'ubuntu', tag: '20.04', size: '69.5MB', created: '1 week ago' },
-        { id: 3, repository: 'mysql', tag: '5.7', size: '487MB', created: '3 weeks ago' },
-        { id: 4, repository: 'redis', tag: '6.0', size: '98.6MB', created: '4 weeks ago' },
-        { id: 5, repository: 'node', tag: '14', size: '248MB', created: '1 month ago' },
       ],
       privateImageList: [
       {
@@ -195,6 +190,8 @@ export default {
           this.privateImageList = imageListResponse.data.data;
 
           this.publicImageList = repoListResponse.data.data;
+
+          this.privateImageList
 
           this.loading = false;
         })

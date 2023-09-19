@@ -3,11 +3,23 @@
   <el-card>
     <!-- <h1>Images</h1> -->
     <el-table size="large" :data="imageList" :stripe="true">
-      <el-table-column label="镜像ID" prop="short_id"></el-table-column>
+      <el-table-column label="镜像ID" prop="short_id">
+        <template #default="scope">
+          {{ scope.row.short_id.slice(7) }}
+        </template>
+      </el-table-column>
       <!-- <el-table-column label="仓库" prop="attrs.Config.Image"></el-table-column> -->
       <el-table-column label="标签" prop="attrs.RepoTags"></el-table-column>
-      <el-table-column label="大小" prop="attrs.Size"></el-table-column>
-      <el-table-column label="创建时间" prop="attrs.Created"></el-table-column>
+      <el-table-column label="大小" prop="attrs.Size">
+        <template #default="scope">
+          {{ formatBytes(scope.row.attrs.Size) }}
+        </template>
+      </el-table-column>
+      <el-table-column label="创建时间" prop="attrs.Created">
+        <template #default="scope">
+          {{ getRelativeDateTime(scope.row.attrs.Created) }}
+        </template>
+      </el-table-column>
       <el-table-column label="" align="right">
         <template #default="scope">
           <div v-if="scope.row.pulling" class="flex gap-2 justify-end items-center">
@@ -43,6 +55,7 @@
 import axios from 'axios';
 import ImageDetails from '@/components/ImageDetails.vue'; 
 import CreateImage from './CreateImage.vue';
+import { getRelativeDateTime, formatBytes } from '@/utils';
 export default {
   props: {
     type: String,
@@ -80,6 +93,12 @@ export default {
     },
   },
   methods: {
+    getRelativeDateTime(input) {
+      return getRelativeDateTime(input)
+    },
+    formatBytes(input) {
+      return formatBytes(input)
+    },
     showCreateDialog() {
       this.createDialogVisible = true;
     },

@@ -18,7 +18,11 @@
       <el-table v-if="!loading" size="large" :data="workloads" >
         <el-table-column label="名称" prop="name"></el-table-column>
         <el-table-column label="镜像" prop="containers[0].image"></el-table-column>
-        <el-table-column label="创建时间" prop="creation_timestamp"></el-table-column>
+        <el-table-column label="创建时间" prop="creation_timestamp">
+          <template #default="scope">
+            {{ getRelativeDateTime(scope.row.creation_timestamp) }}
+          </template>
+        </el-table-column>
         <!-- <el-table-column label="Actions">
           <template slot-scope="scope">
             <el-button type="danger" @click="deleteWorkload(scope.row)">Delete</el-button>
@@ -54,6 +58,7 @@
 import axios from 'axios';
 import LoadDetails from '@/components/LoadDetails.vue'
 import CreateOrEditLoad from '@/components/CreateOrEditLoad.vue';
+import { getRelativeDateTime } from '@/utils';
 export default {
   components: {
     LoadDetails,
@@ -102,6 +107,9 @@ export default {
     this.fetchList()
   },
   methods: {
+    getRelativeDateTime(input) {
+      return getRelativeDateTime(input)
+    },
     fetchList() {
       axios.get('/deployment/list')
         .then((response) => {
