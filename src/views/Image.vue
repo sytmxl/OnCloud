@@ -2,7 +2,7 @@
   <div class="p-2">
     <div class="flex justify-between p-4">
       <div class="flex gap-4">
-        <h1>镜像</h1>
+        <h1>镜像管理</h1>
         <el-radio-group v-model="activeTab" class=" rounded-full">
           <el-radio-button label="private">个人镜像</el-radio-button>
           <el-radio-button label="public">公共镜像</el-radio-button>

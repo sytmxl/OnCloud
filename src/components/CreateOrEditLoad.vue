@@ -13,39 +13,39 @@
     <!-- param form -->
     <el-form v-if="method == 'param'" class="pb-6" ref="form" :model="formDataParam" label-width="120px">
       <el-form-item v-if="type == 'create'" label="名称" prop="name">
-        <el-input v-model="formDataParam.name" required placeholder="name"></el-input>
+        <el-input v-model="formDataParam.name" placeholder="name"></el-input>
       </el-form-item>
 
       <el-form-item v-if="type == 'create'" label="命名空间" prop="namespace">
-        <el-input v-model="formDataParam.namespace" required placeholder="namespace"></el-input>
+        <el-input v-model="formDataParam.namespace" placeholder="namespace"></el-input>
       </el-form-item>
 
       <el-form-item label="镜像" prop="image">
-        <el-input v-model="formDataParam.image" required placeholder="image"></el-input>
+        <el-input v-model="formDataParam.image" placeholder="image"></el-input>
       </el-form-item>
 
       <el-form-item label="副本数" prop="replicas">
-        <el-input-number v-model="formDataParam.replicas" required placeholder="replicas"></el-input-number>
+        <el-input-number v-model="formDataParam.replicas" placeholder="replicas"></el-input-number>
       </el-form-item>
 
       <el-form-item label="环境变量名称" prop="environment_names">
-        <el-input v-model="formDataParam.environment_names" placeholder="environment_names"></el-input>
+        <array-editor :values="formDataParam.environment_names"/>
       </el-form-item>
 
       <el-form-item label="环境变量值" prop="environment_values">
-        <el-input v-model="formDataParam.environment_values" placeholder="environment_values"></el-input>
+        <array-editor :values="formDataParam.environment_values"/>
       </el-form-item>
 
       <el-form-item label="容器端口" prop="container_ports">
-        <el-input v-model="formDataParam.container_ports" placeholder="container_ports"></el-input>
+        <array-editor :values="formDataParam.container_ports"/>
       </el-form-item>
 
       <el-form-item label="标签键" prop="label_keys">
-        <el-input v-model="formDataParam.label_keys" placeholder="label_keys"></el-input>
+        <array-editor :values="formDataParam.label_keys"/>
       </el-form-item>
 
       <el-form-item label="标签值" prop="label_values">
-        <el-input v-model="formDataParam.label_values" placeholder="label_values"></el-input>
+        <array-editor :values="formDataParam.label_values"/>
       </el-form-item>
 
       <el-button class=" float-right" type="primary" @click="createWorkloadParam">提交</el-button>
@@ -78,11 +78,15 @@
 
 <script>
 import axios from 'axios';
+import ArrayEditor from '@/components/ArrayEditor.vue';
 export default {
   props: {
     type: String,
     name: String,
     namespace: String
+  },
+  components: {
+    ArrayEditor,
   },
   data() {
     return {
@@ -92,11 +96,11 @@ export default {
         namespace: "default",
         image: "myflask:0.0.1",
         replicas: 1,
-        environment_names: "env1",
-        environment_values: "1",
-        container_ports: "8888",
-        label_keys: "type",
-        label_values: "flask1",
+        environment_names: ["env1"],
+        environment_values: ["1"],
+        container_ports: ["8888"],
+        label_keys: ["type"],
+        label_values: ["flask1"],
       },
       formDataYaml: {
         name: "test",
@@ -110,15 +114,21 @@ export default {
     };
   },
   methods: {
+    addItem() {
+      this.formDataParam.environment_values.push(''); // 添加一个新的输入项
+    },
+    removeItem(index) {
+      this.formDataParam.environment_values.splice(index, 1); // 移除指定索引的输入项
+    },
     handleFileChange(event) {
       this.formDataYaml.config = event.target.files[0];
     },
     createWorkloadParam() {
-      axios.post(this.type == 'create' ? '/deployment/param/create' : '/deployment/param/update', this.formDataParam)
+      axios.post(this.type == 'create' ? '/deployment/param/create' : '/deployment/param/update', this.formDataParam, { headers: {'Content-Type': 'multipart/form-data',} })
         .then(response => {
           const msg = response.data.msg;
           
-          if (msg === "create success") {
+          if (msg === "create success" || msg === "update success") {
             this.$message.success('操作成功');
             // 可以在此处执行其他操作，例如刷新工作负载列表等
           }
@@ -134,11 +144,11 @@ export default {
         this.$message.error('请选择要上传的文件');
         return;
       }
-      axios.post(this.type == 'create' ? '/deployment/yml/create' : '/deployment/yml/update', this.formDataYaml)
+      axios.post(this.type == 'create' ? '/deployment/yml/create' : '/deployment/yml/update', this.formDataYaml, { headers: {'Content-Type': 'multipart/form-data',} })
         .then(response => {
           const msg = response.data.msg;
           
-          if (msg === "create success") {
+          if (msg === "create success" || msg === "update success") {
             this.$message.success('操作成功');
             // 可以在此处执行其他操作，例如刷新工作负载列表等
           }

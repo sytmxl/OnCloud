@@ -3,16 +3,16 @@
   <el-card>
     <!-- <h1>Images</h1> -->
     <el-table size="large" :data="imageList" :stripe="true">
-      <el-table-column label="镜像ID" prop="short_id">
+      <el-table-column label="短镜像ID" prop="short_id">
         <template #default="scope">
           {{ scope.row.short_id.slice(7) }}
         </template>
       </el-table-column>
       <!-- <el-table-column label="仓库" prop="attrs.Config.Image"></el-table-column> -->
       <el-table-column label="标签" prop="attrs.RepoTags"></el-table-column>
-      <el-table-column label="大小" prop="attrs.Size">
+      <el-table-column label="大小" prop="attrs.VirtualSize">
         <template #default="scope">
-          {{ formatBytes(scope.row.attrs.Size) }}
+          {{ formatBytes(scope.row.attrs.VirtualSize) }}
         </template>
       </el-table-column>
       <el-table-column label="创建时间" prop="attrs.Created">

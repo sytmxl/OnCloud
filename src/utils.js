@@ -1,6 +1,8 @@
 export function getRelativeDateTime(dateTimeStr) {
   const currentDate = new Date();
   const dateTime = new Date(dateTimeStr);
+  // timezone shift
+  dateTime.setHours(dateTime.getHours() + 8);
 
   const currentDateWithoutTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
   const dateTimeWithoutTime = new Date(dateTime.getFullYear(), dateTime.getMonth(), dateTime.getDate());
@@ -21,6 +23,7 @@ export function getRelativeDateTime(dateTimeStr) {
     return dateTime.toLocaleTimeString('zh-CN', options);
   }
 }
+
 export function formatBytes(bytes) {
   if (bytes < 1024) {
     return bytes + ' Bytes';
