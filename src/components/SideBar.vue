@@ -22,11 +22,11 @@
 
 <script>
 import Logo from '@/components/Logo.vue';
-import Mosy from '@/components/Mosy.vue';
+// import Mosy from '@/components/Mosy.vue';
 export default {
   components: {
     Logo,
-    Mosy
+    // Mosy
   },
   name: "SideBar",
   props: {

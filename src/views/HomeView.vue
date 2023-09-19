@@ -10,8 +10,8 @@
 </template>
 <script>
 import axios from 'axios';
-import Todos from '@/components/Todos.vue';
-import Markdown from '@/components/Markdown.vue';
+// import Todos from '@/components/Todos.vue';
+// import Markdown from '@/components/Markdown.vue';
 export default {
   methods: {
     async startWeChatLogin() {
@@ -22,7 +22,7 @@ export default {
     }
   },
   components: {
-    Todos, Markdown
+    // Todos, Markdown
   },
   async mounted() {
     const code = new URLSearchParams(window.location.search).get('code');

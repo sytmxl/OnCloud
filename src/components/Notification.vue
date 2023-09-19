@@ -14,8 +14,8 @@
       <!-- <div class="flex justify-end w-full mt-4 gap-1">
         <el-button class="" type="primary" @click="deleteCookie">清除cookie</el-button>
       </div> -->
-      <div class="title">互动通知</div>
-      <notice-items :input="notices"></notice-items>
+      <!-- <div class="title">互动通知</div>
+      <notice-items :input="notices"></notice-items> -->
     </div>
     <div v-else>
       <div class="title">登录</div>
@@ -29,14 +29,14 @@
 </template>
 
 <script>
-import NoticeItems from '@/components/NoticeItems.vue'
+// import NoticeItems from '@/components/NoticeItems.vue'
 import { ElMessage } from 'element-plus'
 import Login from '@/components/Login.vue'
 import Register from '@/components/Register.vue'
 import axios from 'axios';
 export default {
   components: {
-    NoticeItems,
+    // NoticeItems,
     Login,
     Register,
   },
