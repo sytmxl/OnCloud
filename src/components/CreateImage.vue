@@ -1,5 +1,15 @@
 <template>
+  <el-form v-if="type == 'create'" class="" ref="form" label-width="100px">
+    <el-form-item label="方式">
+      <el-radio-group v-model="method" class=" rounded-full">
+        <el-radio-button label="file">使用Dockerfile</el-radio-button>
+        <el-radio-button label="repo">从仓库拉取</el-radio-button>
+      </el-radio-group>
+    </el-form-item>
+  </el-form>
+
   <el-form
+    v-if="method == 'file'"
     :model="formData"
     label-width="100px"
     ref="dockerForm"
@@ -12,9 +22,21 @@
     <el-form-item label="标签">
       <el-input v-model="formData.tag" placeholder="请输入标签"></el-input>
     </el-form-item>
-    <!-- <el-form-item class="flex flex-row-reverse"> -->
-      <el-button class=" float-right" type="primary" @click="submitForm('dockerForm')">上传</el-button>
-    <!-- </el-form-item> -->
+    
+    <el-button class=" float-right" type="primary" v-loading="loading" @click="submitForm('dockerForm')">上传</el-button>
+  </el-form>
+  <el-form
+    v-else
+    :model="formDataRepo"
+    label-width="100px"
+    ref="dockerForm"
+    class="pb-6"
+  >
+    <el-form-item label="仓库">
+      <el-input v-model="formDataRepo.repository" v-loading="loading" ></el-input>
+    </el-form-item>
+    
+    <el-button class=" float-right" type="primary" @click="submitFormRepo()">提交</el-button>
   </el-form>
 </template>
 
@@ -23,23 +45,49 @@ import axios from 'axios';
 
 export default {
   props: {
-    imageList: Array
+    imageList: Array,
+    type: String,
+    imageId: String
   },
   data() {
     return {
       formData: {
         tag: '',
       },
+      formDataRepo: {
+        repository: 'docker.io/library/alpine:latest',
+      },
       loading: false,
       headers: {
         'Content-Type': 'multipart/form-data',
       },
       selectedFile: null,
+      method: 'file'
     };
   },
   methods: {
     handleFileChange(event) {
       this.selectedFile = event.target.files[0];
+    },
+    submitFormRepo() {
+      this.loading = true
+      axios.post('/image/pull', this.formDataRepo)
+        .then(response => {
+          if (response.data.msg == "pull success") {
+            this.$message.success('拉取成功，请等待创建加载');
+            // reset the form after successful upload
+            this.$refs[formName].resetFields();
+          }
+          else {
+            this.$message.error('失败：' + response.data.msg);
+          }
+          this.loading = false;
+        })
+        .catch(error => {
+          this.$message.error('创建上传失败', error);
+          console.error('Error:', error);
+          this.loading = false;
+        });
     },
     submitForm(formName) {
       if (!this.selectedFile || this.selectedFile == undefined) {
@@ -52,8 +100,9 @@ export default {
           const formData = new FormData();
           formData.append('tag', this.formData.tag);
           formData.append('dockerfile', this.selectedFile);
+          formData.append('image_id', this.imageId)
 
-          axios.post('/image/build', formData, { headers: { 'Content-Type': 'multipart/form-data' }, })
+          axios.post(this.type == 'create' ? '/image/build' : '/image/update', formData, { headers: { 'Content-Type': 'multipart/form-data' }, })
             .then(response => {
               if (response.data.msg == "build success") {
                 this.$message.success('上传成功，请等待创建加载');

@@ -17,7 +17,7 @@
 
     <!-- Create Image Dialog -->
     <el-dialog title="创建新镜像" width="500px" v-model="createDialogVisible">
-      <CreateImage @close="createDialogVisible = false"></CreateImage>
+      <CreateImage type="create" @close="createDialogVisible = false"></CreateImage>
     </el-dialog>
   </div>
 </template>
@@ -182,15 +182,26 @@ export default {
   },
   methods: {
     fetchList() {
-      axios.get('/image/list')
-        .then((response) => {
-          // console.log(response)
-          this.privateImageList = this.publicImageList = response.data.data;
-          this.loading = false
+      const requests = [
+        axios.get('/image/list'),
+        axios.get('/image/listrepo')
+      ];
+
+      Promise.all(requests)
+        .then((responses) => {
+          const imageListResponse = responses[0];
+          const repoListResponse = responses[1];
+
+          this.privateImageList = imageListResponse.data.data;
+
+          this.publicImageList = repoListResponse.data.data;
+
+          this.loading = false;
         })
         .catch((error) => {
-          console.error('Error fetching user list:', error);
+          console.error('Error fetching image lists:', error);
         });
+
     },
     showCreateDialog() {
       this.createDialogVisible = true;
