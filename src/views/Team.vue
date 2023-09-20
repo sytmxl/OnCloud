@@ -4,7 +4,7 @@
       <h1>团队管理</h1>
       <div class="flex gap-1">
         <el-button type="primary" @click="joinDialogVisible = true">加入</el-button>
-        <el-button type="primary" @click="createDialogVisible = true">创建</el-button>
+        <el-button type="primary" @click="createDialogVisible = true"><span class="material-icons-outlined">add</span></el-button>
       </div>
     </div>
 
@@ -19,8 +19,8 @@
         <el-table-column label="" align="right">
           <template #default="scope">
             <div class="flex gap-2 justify-end">
-              <el-button type="danger" size="small" @click="delete(scope.row)">删除</el-button>
-              <el-button type="primary" size="small" @click="showEditDialog(scope.row)">修改</el-button>
+              <el-button type="danger" size="small" @click="delete(scope.row)"><span class="material-icons-outlined">delete</span></el-button>
+              <el-button type="primary" size="small" @click="showEditDialog(scope.row)"><span class="material-icons-outlined">edit</span></el-button>
             </div>
           </template>
         </el-table-column>
@@ -36,7 +36,7 @@
             <el-input v-model="newTeam.name"></el-input>
           </el-form-item>
           <div class="dialog-footer flex w-full  flex-row-reverse gap-1">
-            <el-button type="primary" @click="createTeam">创建</el-button>
+            <el-button type="primary" @click="createTeam"><span class="material-icons-outlined">add</span></el-button>
           </div>
         </el-form>
       </el-card>

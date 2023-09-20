@@ -8,6 +8,9 @@
     </el-dialog>
     <el-dialog title="创建NodePort" v-model="portDialogVisible" >
       <el-form class="surface-variant p-4 pb-0.5 rounded-3xl" ref="form" :model="portForm" label-width="100px">
+        <el-form-item label="目标端口">
+          <el-input v-model="portForm.target_ports"></el-input>
+        </el-form-item>
         <el-form-item label="名称">
           <el-input v-model="portForm.name"></el-input>
         </el-form-item>
@@ -22,7 +25,7 @@
 
     <div class="flex justify-between p-4">
       <h1>工作负载管理</h1>
-      <el-button type="primary" @click="createDialogVisible = true">创建</el-button>
+      <el-button type="primary" size="large" @click="createDialogVisible = true"><span class="material-icons-outlined">add</span></el-button>
     </div>
     
     <!-- Workload List -->
@@ -41,9 +44,9 @@
             <div v-if="scope.row.serve_port != 'null'" class="flex gap-2">
               <!-- {{ scope.row.serve_port }} -->
               <el-button type="primary" size="small" @click="copy(scope.row.serve_port)">复制</el-button>
-              <el-button type="danger" size="small" @click="deletePort(scope.row)">删除</el-button>
+              <el-button type="danger" size="small" @click="deletePort(scope.row)"><span class="material-icons-outlined">delete</span></el-button>
             </div>
-            <el-button v-else type="primary" size="small" @click="preOpenPort(scope.row)">+</el-button>
+            <el-button v-else type="primary" size="small" @click="preOpenPort(scope.row)"><span class="material-icons-outlined">add</span></el-button>
           </template>
         </el-table-column>
         <el-table-column align="right">
@@ -52,9 +55,9 @@
           </template>
           <template #default="scope">
             <div class="flex gap-2 justify-end">
-              <el-button type="primary" size="small" @click="showDetails(scope.row)">详情</el-button>
-              <el-button size="small" type="danger" @click="deleteLoad(scope.row)">删除</el-button>
-              <el-button size="small" @click="updateDialogVisible = true">修改</el-button>
+              <el-button type="primary" size="small" @click="showDetails(scope.row)"><span class="material-icons-outlined">info</span></el-button>
+              <el-button size="small" @click="updateDialogVisible = true"><span class="material-icons-outlined">edit</span></el-button>
+              <el-button size="small" type="danger" @click="deleteLoad(scope.row)"><span class="material-icons-outlined">delete</span></el-button>
             </div>
           </template>
         </el-table-column>

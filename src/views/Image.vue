@@ -4,11 +4,11 @@
       <div class="flex gap-4">
         <h1>镜像管理</h1>
         <el-radio-group v-model="activeTab" class=" rounded-full">
-          <el-radio-button label="private">个人镜像</el-radio-button>
-          <el-radio-button label="public">公共镜像</el-radio-button>
+          <el-radio-button label="private">个人</el-radio-button>
+          <el-radio-button label="public">公共</el-radio-button>
         </el-radio-group>
       </div>
-      <el-button type="primary" @click="showCreateDialog">创建</el-button>
+      <el-button type="primary" size="large" @click="showCreateDialog"><span class="material-icons-outlined">add</span></el-button>
     </div>
     
     <!-- Tab Buttons -->

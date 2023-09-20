@@ -104,7 +104,7 @@ export default {
 
           axios.post(this.type == 'create' ? '/image/build' : '/image/update', formData, { headers: { 'Content-Type': 'multipart/form-data' }, })
             .then(response => {
-              if (response.data.msg == "build success") {
+              if (response.data.msg == "build success" || response.data.msg == "update success") {
                 this.$message.success('上传成功，请等待创建加载');
                 // reset the form after successful upload
                 this.$refs[formName].resetFields();

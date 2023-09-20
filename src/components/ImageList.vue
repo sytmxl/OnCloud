@@ -27,9 +27,9 @@
             <el-button size="small" @click="pull(scope.row)">确认</el-button>
           </div>
           <div v-else class="flex gap-2 justify-end">
-            <el-button type="primary" size="small" @click="showImageDetails(scope.row)">详情</el-button>
-            <el-button v-if="type == 'private'" type="danger" size="small" @click="deleteImage(scope.row)">删除</el-button>
-            <el-button v-if="type == 'private'"  size="small" @click="showEditDialog(scope.row)">修改</el-button>
+            <el-button type="primary" size="small" @click="showImageDetails(scope.row)"><span class="material-icons-outlined">info</span></el-button>
+            <el-button v-if="type == 'private'"  size="small" @click="showEditDialog(scope.row)"><span class="material-icons-outlined">edit</span></el-button>
+            <el-button v-if="type == 'private'" type="danger" size="small" @click="deleteImage(scope.row)"><span class="material-icons-outlined">delete</span></el-button>
             <el-button v-if="type == 'public'"  size="small" @click="scope.row.pulling = true">拉取</el-button>
           </div>
         </template>
@@ -133,7 +133,7 @@ export default {
       this.detailsDialogVisible = true;
     },
     pull(image) {
-      axios.post('/image/pullrepo', { old_tag: image.attrs.RepoTags[0], new_tag: 'pulltest'})
+      axios.post('/image/pullrepo', { old_tag: image.attrs.RepoTags[0], new_tag: this.newTag})
         .then(response => {
           if (response.data) {
             this.$message.success('拉取成功');
