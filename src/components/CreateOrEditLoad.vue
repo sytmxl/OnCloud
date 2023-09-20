@@ -11,7 +11,7 @@
     </el-form>
 
     <!-- param form -->
-    <el-form v-if="method == 'param'" class="pb-6" ref="form" :model="formDataParam" label-width="120px">
+    <el-form v-if="method == 'param'" class="surface-variant p-4 pb-0.5 rounded-3xl" ref="form" :model="formDataParam" label-width="120px">
       <el-form-item v-if="type == 'create'" label="名称" prop="name">
         <el-input v-model="formDataParam.name" placeholder="name"></el-input>
       </el-form-item>
@@ -48,7 +48,7 @@
         <array-editor :values="formDataParam.label_values"/>
       </el-form-item>
 
-      <el-button class=" float-right" type="primary" @click="createWorkloadParam">提交</el-button>
+      
     </el-form>
 
     <!-- yaml form -->
@@ -58,7 +58,7 @@
       label-width="120px"
       ref="form"
       v-loading="loading"
-      class="pb-6"
+      class="surface-variant p-4 pb-0.5 h-fit rounded-3xl"
     >
       <el-form-item label="yaml文件">
         <input type="file" accept=".yaml"  @change="handleFileChange">
@@ -67,12 +67,14 @@
         <el-input v-model="formDataYaml.name" required placeholder="name"></el-input>
       </el-form-item>
 
-      <el-form-item label="命名空间" prop="namespace">
+      <el-form-item class="" label="命名空间" prop="namespace">
         <el-input v-model="formDataYaml.namespace" required placeholder="namespace"></el-input>
       </el-form-item>
-
-      <el-button class=" float-right" type="primary" @click="createWorkloadYaml">提交</el-button>
     </el-form>
+    <div class="flex flex-row-reverse mt-4">
+      <el-button v-if="method == 'param'" type="primary" @click="createWorkloadParam">提交</el-button>
+      <el-button v-else type="primary" @click="createWorkloadYaml">提交</el-button>
+    </div>
   </div>
 </template>
 

@@ -39,7 +39,7 @@
     <el-dialog
       title="详细信息"
       v-model="detailsDialogVisible"
-      class="w-full md:w-1/2 p-4"
+      class=""
     >
       <image-details :detailData="selectedImage" :dialog-visible="detailsDialogVisible"  @close="detailsDialogVisible = false"></image-details>
     </el-dialog>

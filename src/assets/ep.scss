@@ -76,7 +76,7 @@ img {
 
     --el-border-radius-base: 10px;
     --el-border-radius-small: 6px;
-    --el-border-radius-round: 20px;
+    --el-border-radius-round: 30px;
     --el-border-radius-circle: 100%;
 
     --el-transition-duration: 0.3s;
@@ -277,11 +277,41 @@ img {
     border-radius: var(--el-dialog-border-radius);
     box-shadow: var(--el-dialog-box-shadow);
     box-sizing: border-box;
-    width: var(--el-dialog-width,50%);
+    max-width: var(--el-dialog-width,50%);
     &__title {
         color: $on-surface;
     }
 }
+
+.el-dialog__body {
+    padding: 15px;
+    color: var(--el-text-color-regular);
+    font-size: var(--el-dialog-content-font-size);
+    word-break: break-all;
+}
+
+.el-dialog__header {
+    padding: var(--el-dialog-padding-primary);
+    padding-bottom: 10px;
+    margin-right: 16px;
+    word-break: break-all;
+    @apply text-3xl text-center font-bold
+}
+
+.el-dialog__body {
+    padding: 15px;
+    // background: var(--md-sys-color-surface-variant);
+    // color: var(--el-text-color-regular);
+    font-size: var(--el-dialog-content-font-size);
+    word-break: break-all;
+    // @apply rounded-3xl m-2
+}
+
+.el-dialog__title {
+    color: var(--md-sys-color-primary);
+    @apply text-3xl text-center font-bold
+}
+
 .el-textarea__inner {
     background-color: $none;
 }
@@ -320,7 +350,7 @@ img {
 
 .el-card {
     --el-card-border-color: $none;
-    --el-card-border-radius: 20px;
+    --el-card-border-radius: 40px;
     --el-card-padding: 20px;
     --el-card-bg-color: var(--el-fill-color-blank);
     border-radius: var(--el-card-border-radius);
@@ -381,21 +411,6 @@ img {
     box-shadow: var(--el-box-shadow-light);
     word-break: break-all;
     box-sizing: border-box;
-}
-
-.el-dialog {
-    --el-dialog-width: 50%;
-    --el-dialog-margin-top: 15vh;
-    --el-dialog-bg-color: var(--el-bg-color);
-    --el-dialog-box-shadow: var(--el-box-shadow);
-    --el-dialog-title-font-size: var(--el-font-size-large);
-    --el-dialog-content-font-size: 14px;
-    --el-dialog-font-line-height: var(--el-font-line-height-primary);
-    --el-dialog-padding-primary: 20px;
-    --el-dialog-border-radius: var(--el-border-radius-round);
-    position: relative;
-    margin: var(--el-dialog-margin-top, 15vh) auto 50px;
-    width: var(--el-dialog-width, 50%);
 }
 
 .el-message-box {

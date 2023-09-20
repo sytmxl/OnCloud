@@ -1,5 +1,4 @@
 <template>
-  <div>
     <h2 style="margin-top: 0;">基本信息</h2>
     <ul>
       <li><strong>可用副本：</strong>{{ displayOrNoInfo(detailData.available_replicas) }}</li>
@@ -34,7 +33,6 @@
         <strong>端口：</strong>{{ container.ports ? container.ports.join(', ') : '无信息' }}
       </li>
     </ul>
-  </div>
 </template>
 
 
@@ -55,15 +53,5 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-li {
-  list-style: none;
-}
-h2 {
-  @apply mt-6 mb-2
-}
-strong {
-  // background: var(--md-sys-color-primary);
-  color: var(--md-sys-color-primary);
-  // @apply rounded-full p-1
-}
+@import '../assets/detail.scss'
 </style>

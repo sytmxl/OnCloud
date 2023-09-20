@@ -7,15 +7,17 @@
       <create-or-edit-load type="update"></create-or-edit-load>
     </el-dialog>
     <el-dialog title="创建NodePort" v-model="portDialogVisible" >
-      <el-form class="pb-6" ref="form" :model="portForm" label-width="100px">
+      <el-form class="surface-variant p-4 pb-0.5 rounded-3xl" ref="form" :model="portForm" label-width="100px">
         <el-form-item label="名称">
           <el-input v-model="portForm.name"></el-input>
         </el-form-item>
         <el-form-item label="命名空间">
           <el-input v-model="portForm.namespace"></el-input>
         </el-form-item>
-        <el-button class=" float-right" type="primary" @click="openPort()">提交</el-button>
       </el-form>
+      <div class="flex flex-row-reverse mt-4">
+        <el-button class="" type="primary" @click="openPort()">提交</el-button>
+      </div>
     </el-dialog>
 
     <div class="flex justify-between p-4">
@@ -62,7 +64,7 @@
     <el-dialog
       title="详细信息"
       v-model="detailsDialogVisible"
-      class="w-full md:w-1/2 p-4"
+      class=""
     >
       <load-details :detailData="selected" :dialog-visible="detailsDialogVisible"  @close="detailsDialogVisible = false"></load-details>
     </el-dialog>

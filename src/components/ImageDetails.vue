@@ -70,15 +70,5 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-li {
-  list-style: none;
-}
-h2 {
-  @apply mt-6 mb-2
-}
-strong {
-  // background: var(--md-sys-color-primary);
-  color: var(--md-sys-color-primary);
-  // @apply rounded-full p-1
-}
+@import '../assets/detail.scss'
 </style>

@@ -16,7 +16,7 @@
     <ImageList v-if="activeTab == 'public' && !loading" :image-list="publicImageList" type="public"></ImageList>
 
     <!-- Create Image Dialog -->
-    <el-dialog title="创建新镜像" width="500px" v-model="createDialogVisible">
+    <el-dialog title="创建新镜像" v-model="createDialogVisible">
       <CreateImage type="create" @close="createDialogVisible = false"></CreateImage>
     </el-dialog>
   </div>

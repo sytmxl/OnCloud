@@ -1,0 +1,16 @@
+li {
+  list-style: none;
+}
+h2 {
+  @apply mt-6 mb-2 pl-4
+}
+strong {
+  // background: var(--md-sys-color-primary);
+  color: var(--md-sys-color-primary);
+  // @apply rounded-full p-1
+}
+ul {
+  background: var(--md-sys-color-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
+  @apply p-4 rounded-3xl
+}

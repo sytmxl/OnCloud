@@ -14,7 +14,7 @@
     label-width="100px"
     ref="dockerForm"
     v-loading="loading"
-    class="pb-6"
+    class="surface-variant p-4 pb-1 rounded-3xl"
   >
     <el-form-item label="Dockerfile">
       <input type="file" accept=".zip"  @change="handleFileChange">
@@ -22,22 +22,22 @@
     <el-form-item label="标签">
       <el-input v-model="formData.tag" placeholder="请输入标签"></el-input>
     </el-form-item>
-    
-    <el-button class=" float-right" type="primary" v-loading="loading" @click="submitForm('dockerForm')">上传</el-button>
   </el-form>
   <el-form
     v-else
     :model="formDataRepo"
     label-width="100px"
     ref="dockerForm"
-    class="pb-6"
+    class="surface-variant p-4 pb-1 rounded-3xl"
   >
     <el-form-item label="仓库">
       <el-input v-model="formDataRepo.repository" v-loading="loading" ></el-input>
     </el-form-item>
-    
-    <el-button class=" float-right" type="primary" @click="submitFormRepo()">提交</el-button>
   </el-form>
+  <div class="flex flex-row-reverse mt-4">
+    <el-button v-if="method == 'file'" class="" type="primary" v-loading="loading" @click="submitForm('dockerForm')">上传</el-button>
+    <el-button v-else type="primary" @click="submitFormRepo()">提交</el-button>
+  </div>
 </template>
 
 <script>
