@@ -39,6 +39,7 @@
             {{ getRelativeDateTime(scope.row.creation_timestamp) }}
           </template>
         </el-table-column>
+        <el-table-column label="运行副本数" prop="available_replicas"></el-table-column>
         <el-table-column label="NodePort">
           <template #default="scope">
             <div v-if="scope.row.serve_port != 'null'" class="flex gap-2">
@@ -194,7 +195,7 @@ export default {
         });
     },
     deletePort(image) {
-      axios.post('/service/delete', { name: image.name, namespace: image.namespace }, { headers: {'Content-Type': 'multipart/form-data',} })
+      axios.post('/service/delete', { name: image.serve_name, namespace: image.namespace }, { headers: {'Content-Type': 'multipart/form-data',} })
         .then(response => {
           const msg = response.data.msg
           
@@ -223,7 +224,7 @@ export default {
       document.body.removeChild(textarea);
 
       // Optionally, provide feedback to the user
-      this.$message.success("Copied: " + textToCopy);
+      this.$message.success("已复制: " + textToCopy);
     }
   },
 };

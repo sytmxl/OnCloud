@@ -416,7 +416,7 @@ img {
 .el-message-box {
     --el-messagebox-title-color: var(--el-text-color-primary);
     --el-messagebox-width: 420px;
-    --el-messagebox-border-radius: 20px;
+    --el-messagebox-border-radius: 40px;
     --el-messagebox-font-size: var(--el-font-size-large);
     --el-messagebox-content-font-size: var(--el-font-size-base);
     --el-messagebox-content-color: var(--el-text-color-regular);
@@ -425,9 +425,22 @@ img {
     padding-bottom: 10px;
     background-color: var(--el-bg-color);
     border-radius: var(--el-messagebox-border-radius);
-    border: 1px solid var(--el-border-color-lighter);
+    border: 0px solid var(--el-border-color-lighter);
     font-size: var(--el-messagebox-font-size);
     box-shadow: var(--el-box-shadow-light);
+}
+
+.el-message {
+    border: none;
+    border-radius: 30px;
+    color: var(--md-sys-color-on-primary);
+    &--success {
+        background: var(--md-sys-color-primary);
+        color: var(--md-sys-color-on-primary) !important;
+        * {
+            color: var(--md-sys-color-on-primary) !important;
+        }
+    }
 }
 
 .el-descriptions {
