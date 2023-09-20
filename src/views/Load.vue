@@ -6,6 +6,17 @@
     <el-dialog title="修改工作负载" v-model="updateDialogVisible" >
       <create-or-edit-load type="update"></create-or-edit-load>
     </el-dialog>
+    <el-dialog title="创建NodePort" v-model="portDialogVisible" >
+      <el-form class="pb-6" ref="form" :model="portForm" label-width="100px">
+        <el-form-item label="名称">
+          <el-input v-model="portForm.name"></el-input>
+        </el-form-item>
+        <el-form-item label="命名空间">
+          <el-input v-model="portForm.namespace"></el-input>
+        </el-form-item>
+        <el-button class=" float-right" type="primary" @click="openPort()">提交</el-button>
+      </el-form>
+    </el-dialog>
 
     <div class="flex justify-between p-4">
       <h1>工作负载管理</h1>
@@ -23,12 +34,16 @@
             {{ getRelativeDateTime(scope.row.creation_timestamp) }}
           </template>
         </el-table-column>
-        <!-- <el-table-column label="Actions">
-          <template slot-scope="scope">
-            <el-button type="danger" @click="deleteWorkload(scope.row)">Delete</el-button>
-            <el-button type="primary" @click="editWorkload(scope.row)">Edit</el-button>
+        <el-table-column label="NodePort">
+          <template #default="scope">
+            <div v-if="scope.row.serve_port != 'null'" class="flex gap-2">
+              <!-- {{ scope.row.serve_port }} -->
+              <el-button type="primary" size="small" @click="copy(scope.row.serve_port)">复制</el-button>
+              <el-button type="danger" size="small" @click="deletePort(scope.row)">删除</el-button>
+            </div>
+            <el-button v-else type="primary" size="small" @click="preOpenPort(scope.row)">+</el-button>
           </template>
-        </el-table-column> -->
+        </el-table-column>
         <el-table-column align="right">
           <template #header>
             <!-- <el-input v-model="search" size="small" placeholder="搜索名称" /> -->
@@ -101,6 +116,14 @@ export default {
       ],
       loading: true,
       detailsDialogVisible: false,
+      portForm: {
+        label_keys: [],
+        label_values: [],
+        target_ports: 30001,
+        name: 'flask',
+        namespace: 'default'
+      },
+      portDialogVisible: false
     };
   },
   mounted() {
@@ -122,16 +145,10 @@ export default {
     },
     showCreateDialog() {
       this.createDialogVisible = true;
-      // console.log(this.createDialogVisible)
     },
     showDetails(target) {
       this.selected = target;
       this.detailsDialogVisible = true;
-    },
-    createWorkload() {
-      // Send a POST request to your API to create a new workload
-      // Update the 'workloads' data property with the new workload
-      // Clear the form fields
     },
     deleteLoad(load) { 
       axios.post('/deployment/delete', { name: load.name, namespace: load.namespace })
@@ -151,12 +168,58 @@ export default {
           this.$message.error('失败', error);
         });
     },
-    edit(workload) {
-      // Show an edit dialog to update workload details (similar to create)
-      // Send a PUT request to your API to update the workload
-      // Update the 'workloads' data property with the edited workload
+    preOpenPort(image) {
+      this.portForm.label_keys = Object.keys(image.labels)
+      this.portForm.label_values = this.portForm.label_keys.map(key => image.labels[key]);
+      this.portDialogVisible = true
     },
-    // Fetch workloads from your API and populate the 'workloads' data property
+    openPort() {
+      axios.post('/service/param/create', this.portForm, { headers: {'Content-Type': 'multipart/form-data',} })
+        .then(response => {
+          const msg = response.data.msg
+          
+          if (msg == "create success") {
+            this.$message.success('操作成功');
+          }
+          else  
+            this.$message.error('失败: ' + msg);
+        })
+        .catch(error => {
+          this.$message.error('失败', error);
+        });
+    },
+    deletePort(image) {
+      axios.post('/service/delete', { name: image.name, namespace: image.namespace }, { headers: {'Content-Type': 'multipart/form-data',} })
+        .then(response => {
+          const msg = response.data.msg
+          
+          if (msg == "delete success") {
+            this.$message.success('操作成功');
+            image.serve_port = 'null'
+          }
+          else  
+            this.$message.error('失败: ' + msg);
+        })
+        .catch(error => {
+          this.$message.error('失败', error);
+        });
+    },
+    copy(textToCopy) {
+      // Create a textarea element to copy the text
+      const textarea = document.createElement("textarea");
+      textarea.value = textToCopy;
+      document.body.appendChild(textarea);
+
+      // Select and copy the text
+      textarea.select();
+      document.execCommand("copy");
+
+      // Remove the textarea element
+      document.body.removeChild(textarea);
+
+      // Optionally, provide feedback to the user
+      this.$message.success("Copied: " + textToCopy);
+    }
   },
 };
 </script>

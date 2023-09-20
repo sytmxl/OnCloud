@@ -14,6 +14,7 @@
       <li><strong>命名空间：</strong>{{ displayOrNoInfo(detailData.namespace) }}</li>
       <li><strong>副本数：</strong>{{ displayOrNoInfo(detailData.replicas) }}</li>
       <li><strong>不可用副本：</strong>{{ displayOrNoInfo(detailData.unavailable_replicas) }}</li>
+      <li><strong>NodePort：</strong>{{ displayOrNoInfo(detailData.serve_port) }}</li>
     </ul>
 
     <h2>容器信息</h2>
