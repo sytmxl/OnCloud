@@ -139,5 +139,13 @@ body {
   transition: transform 0.3s ease-in-out;
   transform: translateY(calc(100% - 5rem));
 }
-
+.el-table-column {
+  // min-width: 300px !important;
+}
+th {
+  // min-width: 300px !important;
+}
+.el-table__cell {
+  // min-width: 300px !important;
+}
 </style>

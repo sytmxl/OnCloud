@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- <h2>操作工作负载</h2> -->
-    <el-form class="" ref="form" :model="formDataParam" label-width="120px">
+    <el-form class="" ref="form" :model="formDataParam" label-width="100px">
       <el-form-item label="方式">
         <el-radio-group v-model="method" class=" rounded-full">
           <el-radio-button label="param">使用选项</el-radio-button>
@@ -11,7 +11,7 @@
     </el-form>
 
     <!-- param form -->
-    <el-form v-if="method == 'param'" class="surface-variant p-4 pb-0.5 rounded-3xl" ref="form" :model="formDataParam" label-width="120px">
+    <el-form v-if="method == 'param'" class="surface-variant p-4 pb-0.5 rounded-3xl" ref="form" :model="formDataParam" label-width="100px">
       <el-form-item v-if="type == 'create'" label="名称" prop="name">
         <el-input v-model="formDataParam.name" placeholder="name"></el-input>
       </el-form-item>
@@ -55,7 +55,7 @@
     <el-form
       v-else
       :model="formDataYaml"
-      label-width="120px"
+      label-width="100px"
       ref="form"
       v-loading="loading"
       class="surface-variant p-4 pb-0.5 h-fit rounded-3xl"

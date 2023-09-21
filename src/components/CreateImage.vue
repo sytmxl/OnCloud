@@ -1,5 +1,5 @@
 <template>
-  <el-form v-if="type == 'create'" class="" ref="form" label-width="100px">
+  <el-form v-if="type == 'create'" class="" ref="form" label-width="80px">
     <el-form-item label="方式">
       <el-radio-group v-model="method" class=" rounded-full">
         <el-radio-button label="file">使用Dockerfile</el-radio-button>
@@ -11,7 +11,7 @@
   <el-form
     v-if="method == 'file'"
     :model="formData"
-    label-width="100px"
+    label-width="80px"
     ref="dockerForm"
     v-loading="loading"
     class="surface-variant p-4 pb-1 rounded-3xl"
@@ -26,7 +26,7 @@
   <el-form
     v-else
     :model="formDataRepo"
-    label-width="100px"
+    label-width="80px"
     ref="dockerForm"
     class="surface-variant p-4 pb-1 rounded-3xl"
   >

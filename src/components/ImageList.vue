@@ -3,24 +3,24 @@
   <el-card>
     <!-- <h1>Images</h1> -->
     <el-table size="large" :data="imageList" :stripe="true">
-      <el-table-column label="短镜像ID" prop="short_id">
+      <el-table-column label="短镜像ID" prop="short_id" min-width="150px">
         <template #default="scope">
           {{ scope.row.short_id.slice(7) }}
         </template>
       </el-table-column>
       <!-- <el-table-column label="仓库" prop="attrs.Config.Image"></el-table-column> -->
-      <el-table-column label="标签" prop="attrs.RepoTags"></el-table-column>
-      <el-table-column label="大小" prop="attrs.VirtualSize">
+      <el-table-column label="标签" prop="attrs.RepoTags" min-width="300px"></el-table-column>
+      <el-table-column label="大小" prop="attrs.VirtualSize" min-width="150px">
         <template #default="scope">
           {{ formatBytes(scope.row.attrs.VirtualSize) }}
         </template>
       </el-table-column>
-      <el-table-column label="创建时间" prop="attrs.Created">
+      <el-table-column label="创建时间" prop="attrs.Created" min-width="200px">
         <template #default="scope">
           {{ getRelativeDateTime(scope.row.attrs.Created) }}
         </template>
       </el-table-column>
-      <el-table-column label="" align="right">
+      <el-table-column label="" align="right" min-width="200px">
         <template #default="scope">
           <div v-if="scope.row.pulling" class="flex gap-2 justify-end items-center">
             <el-input v-model="newTag" v-loading="loading" ></el-input>

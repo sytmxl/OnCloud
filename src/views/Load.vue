@@ -7,7 +7,7 @@
       <create-or-edit-load type="update"></create-or-edit-load>
     </el-dialog>
     <el-dialog title="创建NodePort" v-model="portDialogVisible" >
-      <el-form class="surface-variant p-4 pb-0.5 rounded-3xl" ref="form" :model="portForm" label-width="100px">
+      <el-form class="surface-variant p-4 pb-0.5 rounded-3xl" ref="form" :model="portForm" label-width="80px">
         <el-form-item label="目标端口">
           <el-input v-model="portForm.target_ports"></el-input>
         </el-form-item>
@@ -32,15 +32,15 @@
     <el-card>
       <!-- <h2>工作负载</h2> -->
       <el-table v-if="!loading" size="large" :data="workloads" >
-        <el-table-column label="名称" prop="name"></el-table-column>
-        <el-table-column label="镜像" prop="containers[0].image"></el-table-column>
-        <el-table-column label="创建时间" prop="creation_timestamp">
+        <el-table-column label="名称" prop="name" min-width="150px"></el-table-column>
+        <el-table-column label="镜像" prop="containers[0].image" min-width="300px"></el-table-column>
+        <el-table-column label="创建时间" prop="creation_timestamp" min-width="150px">
           <template #default="scope">
             {{ getRelativeDateTime(scope.row.creation_timestamp) }}
           </template>
         </el-table-column>
-        <el-table-column label="运行副本数" prop="available_replicas"></el-table-column>
-        <el-table-column label="NodePort">
+        <el-table-column label="运行中" prop="available_replicas" min-width="100px"></el-table-column>
+        <el-table-column label="NodePort" min-width="150px">
           <template #default="scope">
             <div v-if="scope.row.serve_port != 'null'" class="flex gap-2">
               <!-- {{ scope.row.serve_port }} -->
@@ -50,7 +50,7 @@
             <el-button v-else type="primary" size="small" @click="preOpenPort(scope.row)"><span class="material-icons-outlined">add</span></el-button>
           </template>
         </el-table-column>
-        <el-table-column align="right">
+        <el-table-column align="right" min-width="200px">
           <template #header>
             <!-- <el-input v-model="search" size="small" placeholder="搜索名称" /> -->
           </template>

@@ -277,7 +277,8 @@ img {
     border-radius: var(--el-dialog-border-radius);
     box-shadow: var(--el-dialog-box-shadow);
     box-sizing: border-box;
-    max-width: var(--el-dialog-width,50%);
+    max-width: 700px !important;
+    width: 100%;
     &__title {
         color: $on-surface;
     }
