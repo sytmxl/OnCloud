@@ -37,7 +37,7 @@ export default {
         // { index: '/gallery', icon: 'book', text: '日常' },
         { index: '/image', icon: 'cloud', text: '镜像' },
         { index: '/load', icon: 'dns', text: '负载' },
-        { index: '/team', icon: 'groups', text: '团队' },
+        // { index: '/team', icon: 'groups', text: '团队' },
         // { index: '/gossip', icon: 'numbers', text: 'Commits' },
         // { index: '/stuff', icon: 'view_week', text: 'Todo' },
         // { index: '/user', icon: 'face', text: '你' },

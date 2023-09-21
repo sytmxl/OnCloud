@@ -33,7 +33,6 @@
         <li>
           <strong>端口：</strong>{{ container.ports ? container.ports.join(', ') : '无信息' }}
         </li>
-        <li><strong>镜像：</strong>{{ displayOrNoInfo(container.image) }}</li>
         <li>
           <strong>Liveness Probe：</strong>
           <div class="surface p-4 rounded-2xl">
@@ -49,10 +48,10 @@
           <li><strong>CPU 请求：</strong>{{ displayOrNoInfo(container.resources.requests.cpu) }}</li>
           <li><strong>内存请求：</strong>{{ displayOrNoInfo(container.resources.requests.memory) }}</li>
         </div>
-        <li><strong>安全上下文：</strong></li>
-        <div class="surface p-4 rounded-2xl">
-          <li><strong>Capabilities Add：</strong>{{ displayOrNoInfo(container.security_context.capabilities.add.join(', ')) }}</li>
-          <li><strong>Capabilities Drop：</strong>{{ displayOrNoInfo(container.security_context.capabilities.drop.join(', ')) }}</li>
+        <li v-if="container.security_context"><strong>安全上下文：</strong></li>
+        <div v-if="container.security_context" class="surface p-4 rounded-2xl">
+          <li><strong>Capabilities Add：</strong>{{ container.security_context.capabilities.add ? displayOrNoInfo(container.security_context.capabilities.add.join(', ')) : '无信息' }}</li>
+          <li><strong>Capabilities Drop：</strong>{{ container.security_context.capabilities.drop ? displayOrNoInfo(container.security_context.capabilities.drop.join(', ')) : '无信息' }}</li>
           <li><strong>Selinux Options Level：</strong>{{ displayOrNoInfo(container.security_context.selinux_options.level) }}</li>
         </div>
       </ul>

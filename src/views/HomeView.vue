@@ -1,9 +1,7 @@
 
 <template>
   <div class="p-4 max-w-2xl mx-auto">
-    <div class="">
-      <div>首页（移动端上划底部标签调出导航</div>
-    </div>
+    <h1>首页</h1>
   </div>
 </template>
 <script>
