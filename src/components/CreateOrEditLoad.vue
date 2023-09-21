@@ -50,8 +50,6 @@
 
       
     </el-form>
-
-    <!-- yaml form -->
     <el-form
       v-else
       :model="formDataYaml"
@@ -71,6 +69,40 @@
         <el-input v-model="formDataYaml.namespace" required placeholder="namespace"></el-input>
       </el-form-item>
     </el-form>
+
+    <div v-if="method == 'param'" class="flex items-center p-4 gap-2">
+      <h1>高级选项</h1>
+      <el-button class="w-fit float-right" @click="advanced = !advanced" ><span class="material-icons-outlined">{{ !advanced ? 'add':'remove' }}</span></el-button>
+    </div>
+    <el-form v-if="method == 'param' && advanced" class="surface-variant p-4 pb-0.5 rounded-3xl" ref="form" :model="advancedData" label-width="100px">
+
+      <el-form-item label="probe path" prop="probe_path">
+        <el-input v-model="advancedData.probe_path" ></el-input>
+      </el-form-item>
+
+      <el-form-item label="cpu限额" prop="cpu_memory">
+        <el-input v-model="advancedData.cpu_memory" ></el-input>
+      </el-form-item>
+
+      <el-form-item label="probe port" prop="probe_port">
+        <el-input-number v-model="advancedData.probe_port" ></el-input-number>
+      </el-form-item>
+
+      <el-form-item label="启动命令" prop="commands">
+        <array-editor :values="advancedData.commands"/>
+      </el-form-item>
+
+      <el-form-item label="secure cap" prop="secure_cap">
+        <el-input v-model="advancedData.secure_cap" ></el-input>
+      </el-form-item>
+
+      <el-form-item label="secure level" prop="secure_level">
+        <el-input v-model="advancedData.secure_level" ></el-input>
+      </el-form-item>
+    </el-form>
+
+    <!-- yaml form -->
+    
     <div class="flex flex-row-reverse mt-4">
       <el-button v-if="method == 'param'" type="primary" @click="createWorkloadParam">提交</el-button>
       <el-button v-else type="primary" @click="createWorkloadYaml">提交</el-button>
@@ -104,6 +136,15 @@ export default {
         label_keys: ["type"],
         label_values: ["flask1"],
       },
+      advanced: false,
+      advancedData: {
+        probe_path: '/healthy',
+        probe_port: 7000,
+        cpu_memory: '1Gi',
+        commands: ['python', 'app.py'],
+        secure_cap: 'ALL',
+        secure_level: 's0:c123,c456'
+      },
       formDataYaml: {
         name: "test",
         namespace: "default",
@@ -126,6 +167,7 @@ export default {
       this.formDataYaml.config = event.target.files[0];
     },
     createWorkloadParam() {
+      if (this.advanced) this.formDataParam = Object.assign({}, this.formDataParam, this.advancedData)
       axios.post(this.type == 'create' ? '/deployment/param/create' : '/deployment/param/update', this.formDataParam, { headers: {'Content-Type': 'multipart/form-data',} })
         .then(response => {
           const msg = response.data.msg;
